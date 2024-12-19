@@ -43,10 +43,10 @@ function MathFunction({ functionName, setOutput, nextFunction, index }) {
               className="w-[15px] h-[15px] border-[3px] border-[#D3D3D3] rounded-full flex justify-center items-center">
               <div className="w-[5px] h-[5px] rounded-full bg-blue-600"></div>
             </div>
-            <div className="-mt-1.5">input</div>
+            <div className="-mt-0.5 text-[#585757] font-medium text-[12px]">input</div>
           </div>
           <div className="h-full flex gap-1">
-            <div className="-mt-1.5">output</div>
+            <div className="-mt-0.5 text-[#585757] font-medium text-[12px]">output</div>
             <div
               id={`${toSnakeCase(functionName)}_output`}
               className="w-[15px] h-[15px] border-[3px] border-[#D3D3D3] rounded-full flex justify-center items-center">

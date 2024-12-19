@@ -152,7 +152,7 @@ function App() {
   }, [updateConnections]);
 
   return (
-    <div id="mainDiv" className='overflow-auto flex mx-14'>
+    <div id="mainDiv" className='overflow-auto flex m-[120px] no-scrollbar'>
       <div className='h-[450px] flex items-center justify-center'>
         <div>
           <div className='px-3 py-1 border border-[#E29A2D] bg-[#E29A2D] rounded-full w-fit text-[#FFFFFF] text-xs mb-2 font-semibold'>

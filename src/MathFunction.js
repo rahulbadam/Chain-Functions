@@ -2,8 +2,6 @@ import Dropdown from "./Dropdown";
 import { ReactComponent as Icon } from "./dots.svg";
 import "./index.css";
 
-
-
 function MathFunction({ functionName, setOutput, nextFunction, index }) {
   const toSnakeCase = (title) =>
     title.trim().toLowerCase().replace(/\s+/g, "_").replace(/[^\w_]/g, "");
@@ -12,14 +10,16 @@ function MathFunction({ functionName, setOutput, nextFunction, index }) {
     <div className="relative">
       <div className="border-2 border-[#DFDFDF] p-5 m-5 rounded-[15px] h-[251px] w-[235px]">
         <div className="flex gap-2.5">
-          <div className="mt-2">
+          <div className="mt-3">
             <Icon width={12} height={7} />
           </div>
           <div className="text-[#A5A5A5] text-[14px] font-semibold">
             {functionName}
           </div>
         </div>
-        <label className="text-[#252525] font-medium text-[12px]">Equation</label>
+        <div className="mt-3">
+          <label className="text-[#252525] font-medium text-[12px]">Equation</label>
+        </div>
         <input
           type="text"
           className="border border-[#D3D3D3] px-2 py-1 rounded-lg w-[195px] h-[23px] focus:outline-none focus:border-blue-500"
@@ -30,11 +30,13 @@ function MathFunction({ functionName, setOutput, nextFunction, index }) {
             }))
           }}
         />
-        <label className="text-[#252525] font-medium text-[12px]">
-          Next Function
-        </label>
+        <div className="mt-2">
+          <label className="text-[#252525] font-medium text-[12px]">
+            Next Function
+          </label>
+        </div>
         <Dropdown value={`function${nextFunction}`} />
-        <div className="w-full h-full flex justify-between mt-14 container ">
+        <div className="w-full h-full flex justify-between mt-10 container ">
           <div className="h-full w-full flex gap-1">
             <div
               id={`${toSnakeCase(functionName)}_input`}

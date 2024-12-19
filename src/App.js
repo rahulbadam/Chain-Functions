@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './App.css';
 import MathFunction from './MathFunction';
 
@@ -26,7 +26,7 @@ function calculateWithX(x, equation) {
   function substituteAndTokenize(equation) {
     const processedEquation = handleImplicitMultiplication(equation);
     const substituted = processedEquation.replace(/x/gi, `(${x})`);
-    return substituted.match(/(\d+(\.\d+)?|\^|\*|\/|\+|\-|\(|\))/g);
+    return substituted.match(/(\d+(\.\d+)?|\^|\*|\/|\+|-|\(|\))/g);
   }
 
   function evaluateExpression(tokens) {
@@ -127,7 +127,7 @@ function App() {
     line.style.left = `${fromX}px`;
   }
 
-  useEffect(() => {
+  const updateConnections = useCallback(() => {
     const connections = [
       { start: "function_0_output", end: "function_1_input", line: "line1" },
       { start: "function_1_output", end: "function_2_input", line: "line2" },
@@ -137,24 +137,25 @@ function App() {
       { start: "function_3_output", end: "function_6_input", line: "line6" },
     ];
 
-    const updateConnections = () => {
-      connections.forEach(({ start, end, line }) => connectLine(start, end, line));
-    };
+    connections.forEach(({ start, end, line }) => connectLine(start, end, line));
+  }, []);
+
+  useEffect(() => {
     window.addEventListener("resize", updateConnections);
-    window.addEventListener("scroll", updateConnections);
+    document.querySelector('#mainDiv').addEventListener("scroll", updateConnections, false);
 
     updateConnections();
     return () => {
       window.removeEventListener("resize", updateConnections);
       window.removeEventListener("scroll", updateConnections);
     };
-  }, []);
+  }, [updateConnections]);
 
   return (
-    <div className='overflow-hidden flex mx-14'>
-      <div className='h-[440px] flex items-center justify-center'>
+    <div id="mainDiv" className='overflow-auto flex mx-14'>
+      <div className='h-[450px] flex items-center justify-center'>
         <div>
-          <div className='px-3 py-1 border border-[#E29A2D] bg-[#E29A2D] rounded-full w-fit text-[#FFFFFF] text-xs mb-2'>
+          <div className='px-3 py-1 border border-[#E29A2D] bg-[#E29A2D] rounded-full w-fit text-[#FFFFFF] text-xs mb-2 font-semibold'>
             inital value of x
           </div>
           <div className='flex border-[2px] border-[#FFC267] w-[115px] px-1 rounded-lg'>
@@ -193,9 +194,9 @@ function App() {
           <div id="line6" className='fixed bg-[#0066FF4F] h-[5px] origin-top-left z-10 -mt-[2px]'></div>
         </div>
       </div>
-      <div className='h-[440px] flex items-center justify-center'>
+      <div className='h-[450px] flex items-center justify-center'>
         <div>
-          <div className='px-3 py-1 border border-[#4CAF79] bg-[#4CAF79] rounded-full w-fit text-[#FFFFFF] text-xs mb-2'>
+          <div className='px-3 py-1 border border-[#4CAF79] bg-[#4CAF79] rounded-full w-fit text-[#FFFFFF] text-xs mb-2 font-semibold'>
             Final output y
           </div>
           <div className='flex border-[2px] border-[#2DD179] w-[115px] px-1 rounded-lg'>
